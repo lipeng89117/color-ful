@@ -190,7 +190,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      16.5k 字
+      16.4k 字
     </span>
   
 
@@ -200,7 +200,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      229
+      228
        分钟
     </span>
   
@@ -233,7 +233,7 @@
             <h1 style="display: none">MyBatis 框架</h1>
             
             <div class="markdown-body">
-              <p><img src="/color-ful/img/blog/mybatis.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210106095916987"></p>
+              <p><img src="/color-ful/img/blog/image-20210106095916987.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210106095916987"></p>
 <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><blockquote>
 <p><font color="red">MyBatis</font> 本是apache的一个开源项目<font color="red">iBatis</font>, 2010年这个项目由apache software foundation 迁移到了google code，并且改名为MyBatis 2013年11月迁移到Github。</p>
 </blockquote>
@@ -1083,15 +1083,15 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testFindAll</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>    List&lt;Account&gt; accounts = accountDao.findAll();<br>    <span class="hljs-keyword">for</span> (Account account : accounts) &#123;<br>        System.out.println(account);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h3 id="19-5-配置一对多关系"><a href="#19-5-配置一对多关系" class="headerlink" title="19.5 配置一对多关系"></a>19.5 配置一对多关系</h3><p><font color="cornflowerblue">1. 在实体类中体现一对多关系</font></p>
-<p>![image-20210317140135563](D:\工作文件夹\录课\JavaSE 一阶段\17-JVM\image-20210317140135563.png)</p>
+<p><img src="/color-ful/img/mybatis/image-20210317140135563.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210317140135563"></p>
 <p><font color="cornflowerblue">2. 在UserDao中修改方法并添加注解</font></p>
-<p>![image-20210317140313781](D:\工作文件夹\录课\JavaSE 一阶段\17-JVM\image-20210317140313781.png)</p>
+<p><img src="/color-ful/img/mybatis/image-20210317140313781.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210317140313781"></p>
 <p><font color="cornflowerblue">3. 测试</font></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testFindAll</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>     List&lt;User&gt; users = userDao.findAll();<br>     <span class="hljs-keyword">for</span> (User user : users) &#123;<br>         System.out.println(<span class="hljs-string">&quot;------------------&quot;</span>);<br>         System.out.println(user);<br>         System.out.println(user.getAccounts());<br>     &#125;<br> &#125;<br></code></pre></td></tr></table></figure>
 
 <h3 id="19-6-注解方式开启二级缓存"><a href="#19-6-注解方式开启二级缓存" class="headerlink" title="19.6 注解方式开启二级缓存"></a>19.6 注解方式开启二级缓存</h3><p><font color="cornflowerblue">1. 主配置中添加配置，但是该配置默认是开启的</font></p>
 <p><font color="cornflowerblue">2. 在相应dao层接口上，添加注解</font></p>
-<p>![image-20210317142014018](D:\工作文件夹\录课\JavaSE 一阶段\17-JVM\image-20210317142014018.png)</p>
+<p><img src="/color-ful/img/mybatis/image-20210317142014018.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210317142014018"></p>
 
             </div>
             <hr>
