@@ -1,0 +1,793 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/color-ful/img/favicon.png">
+  <link rel="icon" href="/color-ful/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="LP">
+  <meta name="keywords" content="">
+  
+  <title>二阶段练习项目：图书管理系统 - Eureka</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/color-ful/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/color-ful/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"lpgogogo.gitee.io","root":"/color-ful/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/color-ful/js/utils.js" ></script>
+  <script  src="/color-ful/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/color-ful/">&nbsp;<strong>Eureka</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/color-ful/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/color-ful/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/color-ful/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/color-ful/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/color-ful/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/color-ful/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="二阶段练习项目：图书管理系统">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      LP
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-01-17 00:00" pubdate>
+        2020年1月17日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      6.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      105
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">二阶段练习项目：图书管理系统</h1>
+            
+            <div class="markdown-body">
+              <h1 id="二阶段项目-图书管理系统"><a href="#二阶段项目-图书管理系统" class="headerlink" title="二阶段项目-图书管理系统"></a>二阶段项目-图书管理系统</h1><h2 id="1-三层架构"><a href="#1-三层架构" class="headerlink" title="1. 三层架构"></a>1. 三层架构</h2><p>三层架构也是软件设计架构，与MVC类似，学习完三层架构，再结合MVC就可以写出比较标准的代码。</p>
+<p>三层架构将软件分为了三层：</p>
+<ol>
+<li>表示层：用户看到的界面。用户可以通过界面上的组件 和 服务器进行交互</li>
+<li>业务逻辑层：用来处理业务逻辑。不做具体实现，</li>
+<li>数据访问层：操作数据存储文件。</li>
+</ol>
+<p><font color="cornflowerblue"><strong>图解：三层架构</strong></font></p>
+<p><img src="/color-ful/img/javaee/%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84.png" srcset="/color-ful/img/loading.gif" lazyload></p>
+<h2 id="2-准备工作"><a href="#2-准备工作" class="headerlink" title="2. 准备工作"></a>2. 准备工作</h2><h3 id="2-1创建数据库"><a href="#2-1创建数据库" class="headerlink" title="2.1创建数据库"></a>2.1创建数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> DATABASE bookManager CHARSET utf8;<br><br>USE bookManager;<br><br><span class="hljs-comment">-- 用户表</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">USER</span>(<br>u_id <span class="hljs-type">INT</span> <span class="hljs-keyword">PRIMARY</span> KEY AUTO_INCREMENT, <span class="hljs-comment">-- 用户id</span><br>username <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">32</span>) <span class="hljs-keyword">UNIQUE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<span class="hljs-comment">-- 用户名</span><br>PASSWORD <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">64</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<span class="hljs-comment">-- 密码</span><br>gender <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">5</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<span class="hljs-comment">-- 性别</span><br>birthday <span class="hljs-type">DATE</span>,<span class="hljs-comment">-- 生日</span><br>address <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">300</span>),<span class="hljs-comment">-- 地址</span><br>email <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<span class="hljs-comment">-- 邮箱</span><br>head_portrait <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">300</span>) <span class="hljs-comment">-- 头像</span><br>);<br><br><span class="hljs-comment">-- 书籍表</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> book(<br>b_id <span class="hljs-type">INT</span> <span class="hljs-keyword">PRIMARY</span> KEY AUTO_INCREMENT,<span class="hljs-comment">-- 书籍id</span><br>b_name <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">200</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<span class="hljs-comment">-- 书籍名称</span><br>b_author <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">100</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<span class="hljs-comment">-- 书籍作者</span><br>b_intro <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">500</span>),<span class="hljs-comment">-- 书籍简介</span><br>b_inventory <span class="hljs-type">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> <span class="hljs-comment">-- 书籍库存</span><br>);<br><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> borrow_books(<br>u_id  <span class="hljs-type">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>, <span class="hljs-comment">-- 用户id 外键</span><br>b_id  <span class="hljs-type">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>, <span class="hljs-comment">-- 书籍id 外键</span><br>borrow_date <span class="hljs-type">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>, <span class="hljs-comment">-- 借出时间</span><br>return_date <span class="hljs-type">DATE</span>, <span class="hljs-comment">-- 归还时间</span><br>item_status <span class="hljs-type">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> , <span class="hljs-comment">-- 状态：0 正在进行，1 已完成</span><br><br><span class="hljs-keyword">CONSTRAINT</span> user_bb_fk <span class="hljs-keyword">FOREIGN</span> KEY(u_id) <span class="hljs-keyword">REFERENCES</span> <span class="hljs-keyword">USER</span>(u_id),<br><span class="hljs-keyword">CONSTRAINT</span> book_bb_fk <span class="hljs-keyword">FOREIGN</span> KEY(b_id) <span class="hljs-keyword">REFERENCES</span> book(b_id)<br><br>);<br></code></pre></td></tr></table></figure>
+
+<p><font color="cornflowerblue"><strong>图示：3张表的关系图</strong></font></p>
+<p><img src="/color-ful/img/javaee/image-20210126120209284.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210126120209284"></p>
+<h3 id="2-2-创建项目"><a href="#2-2-创建项目" class="headerlink" title="2.2 创建项目"></a>2.2 创建项目</h3><p><font color="cornflowerblue"><strong>1.按照下图创建项目结构</strong></font></p>
+<p><img src="/color-ful/img/javaee/image-20210126120613932.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210126120613932"></p>
+<p><font color="cornflowerblue"><strong>2.导入支持库，配置文件，jar包</strong></font></p>
+<p><img src="/color-ful/img/javaee/image-20210126121241682.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210126121241682"></p>
+<p><font color="cornflowerblue"><strong>3.将静态页面，js，css导入工程</strong></font></p>
+<p><img src="/color-ful/img/javaee/image-20210126144227900.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210126144227900"></p>
+<h2 id="3-书籍列表查询"><a href="#3-书籍列表查询" class="headerlink" title="3. 书籍列表查询"></a>3. 书籍列表查询</h2><ol>
+<li><strong>将静态页面<code>index.html</code>内容拷贝到 <code>index.jsp</code>页面中</strong></li>
+<li><strong>将跳转路径修改为对应业务的servlet</strong></li>
+</ol>
+<p><img src="/color-ful/img/javaee/image-20210126155547345.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210126155547345"></p>
+<ol start="3">
+<li><p><strong>创建对应servlet，但是因为没有service 对应的类，所以创建之后先放在这里，稍后再实现功能</strong></p>
+<p><img src="/color-ful/img/javaee/image-20210126160249189.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210126160249189"></p>
+</li>
+<li><p><strong>分别创建dao层接口 和 service层接口 并实现对应接口</strong></p>
+<p><font color="cornflowerblue">4.1 dao层</font></p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> *  与书籍有关的数据库操作接口</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BookDao</span> </span>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *  查询所有书籍的方法</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function">List&lt;Book&gt; <span class="hljs-title">findAllBooks</span><span class="hljs-params">()</span></span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BookDaoImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">BookDao</span> </span>&#123;<br>    <span class="hljs-comment">//创建JDBCTemplate对象</span><br>  <span class="hljs-keyword">private</span> JdbcTemplate template = <span class="hljs-keyword">new</span> JdbcTemplate(JDBCUtils.getDataSource());<br>  <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Book&gt; <span class="hljs-title">findAllBooks</span><span class="hljs-params">()</span> </span>&#123;<br><br>        <span class="hljs-comment">//编写sql</span><br>        String sql = <span class="hljs-string">&quot;select * from book&quot;</span>;<br>        <span class="hljs-comment">//执行</span><br>        List&lt;Book&gt; books = template.query(sql, <span class="hljs-keyword">new</span> BeanPropertyRowMapper&lt;&gt;(Book.class));<br><br>        <span class="hljs-keyword">return</span> books;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>​    <font color="cornflowerblue">4,2 service层</font></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 与书籍有关业务</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BookService</span> </span>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *  查询所有书籍列表</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function">List&lt;Book&gt; <span class="hljs-title">findAllBooks</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BookServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">BookService</span> </span>&#123;<br>    <span class="hljs-comment">//创建dao层对象</span><br>    BookDao bookDao = <span class="hljs-keyword">new</span> BookDaoImpl();<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Book&gt; <span class="hljs-title">findAllBooks</span><span class="hljs-params">()</span> </span>&#123;<br><br>        <span class="hljs-keyword">return</span> bookDao.findAllBooks();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<ol start="5">
+<li><strong>再回到servlet中。</strong></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@WebServlet(&quot;/bookListServlet&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BookListServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HttpServlet</span> </span>&#123;<br>    <span class="hljs-comment">//创建service层</span><br>    BookService bookService = <span class="hljs-keyword">new</span> BookServiceImpl();<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br>        <span class="hljs-keyword">this</span>.doPost(req, resp);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doPost</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br>        <span class="hljs-comment">//创建service层</span><br>        BookService bookService = <span class="hljs-keyword">new</span> BookServiceImpl();<br>        <span class="hljs-comment">//调用方法完成功能</span><br>        List&lt;Book&gt; allBooks = bookService.findAllBooks();<br>        <span class="hljs-comment">//将list存入request域中</span><br>        req.setAttribute(<span class="hljs-string">&quot;allBooks&quot;</span>, allBooks);<br>        <span class="hljs-comment">//转发</span><br>        req.getRequestDispatcher(<span class="hljs-string">&quot;/list.jsp&quot;</span>).forward(req,resp);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<ol start="6">
+<li><strong>将<code>list.html</code>中的内容复制到 <code>list.jsp</code>中</strong></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><code class="hljs java"><br>&lt;%@ page contentType=<span class="hljs-string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="hljs-string">&quot;java&quot;</span> %&gt;<br>&lt;%@ taglib prefix=<span class="hljs-string">&quot;c&quot;</span> uri=<span class="hljs-string">&quot;http://java.sun.com/jsp/jstl/core&quot;</span> %&gt;<br>&lt;html lang=<span class="hljs-string">&quot;zh-CN&quot;</span>&gt;<br>&lt;head&gt;<br>    &lt;!-- 指定字符集 --&gt;<br>    &lt;meta charset=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;<br>    &lt;!-- 使用Edge最新的浏览器的渲染方式 --&gt;<br>    &lt;meta http-equiv=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> content=<span class="hljs-string">&quot;IE=edge&quot;</span>&gt;<br>    &lt;!-- viewport视口：网页可以根据设置的宽度自动进行适配，在浏览器的内部虚拟一个容器，容器的宽度与设备的宽度相同。<br>    width: 默认宽度与设备的宽度相同<br>    initial-scale: 初始的缩放比，为<span class="hljs-number">1</span>:<span class="hljs-number">1</span> --&gt;<br>    &lt;meta name=<span class="hljs-string">&quot;viewport&quot;</span> content=<span class="hljs-string">&quot;width=device-width, initial-scale=1&quot;</span>&gt;<br>    &lt;!-- 上述<span class="hljs-number">3</span>个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ --&gt;<br>    &lt;title&gt;用户信息管理系统&lt;/title&gt;<br><br>    &lt;!-- <span class="hljs-number">1.</span> 导入CSS的全局样式 --&gt;<br>    &lt;link href=<span class="hljs-string">&quot;css/bootstrap.min.css&quot;</span> rel=<span class="hljs-string">&quot;stylesheet&quot;</span>&gt;<br>    &lt;!-- <span class="hljs-number">2.</span> jQuery导入，建议使用<span class="hljs-number">1.9</span>以上的版本 --&gt;<br>    &lt;script src=&quot;js/jquery-2.1.0.min.js&quot;&gt;&lt;/script&gt;<br>    &lt;!-- <span class="hljs-number">3.</span> 导入bootstrap的js文件 --&gt;<br>    &lt;script src=&quot;js/bootstrap.min.js&quot;&gt;&lt;/script&gt;<br>    &lt;style type=<span class="hljs-string">&quot;text/css&quot;</span>&gt;<br>        td, th &#123;<br>            text-align: center;<br>        &#125;<br>    &lt;/style&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>&lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;jumbotron&quot;</span>&gt;<br>    &lt;h1&gt;啥都没有图书馆里系统&lt;/h1&gt;<br>    &lt;p&gt;Nothing Have Manager System&lt;/p&gt;<br><br>&lt;/div&gt;<br>&lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;container&quot;</span>&gt;<br>    &lt;h3 style=&quot;text-align: center&quot;&gt;图书信息列表&lt;/h3&gt;<br>    &lt;table border=<span class="hljs-string">&quot;1&quot;</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;table table-bordered table-hover&quot;</span>&gt;<br>        &lt;tr <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;success&quot;</span>&gt;<br>            &lt;th&gt;编号&lt;/th&gt;<br>            &lt;th&gt;书名&lt;/th&gt;<br>            &lt;th&gt;作者&lt;/th&gt;<br>            &lt;th&gt;简介&lt;/th&gt;<br>            &lt;th&gt;库存&lt;/th&gt;<br>            &lt;th&gt;操作&lt;/th&gt;<br>        &lt;/tr&gt;<br>        &lt;c:forEach items=<span class="hljs-string">&quot;$&#123;allBooks&#125;&quot;</span> varStatus=<span class="hljs-string">&quot;s&quot;</span> <span class="hljs-keyword">var</span>=<span class="hljs-string">&quot;book&quot;</span> &gt;<br>            &lt;tr&gt;<br>                &lt;td&gt;$&#123;book.b_id&#125;&lt;/td&gt;<br>                &lt;td&gt;$&#123;book.b_name&#125;&lt;/td&gt;<br>                &lt;td&gt;$&#123;book.b_author&#125;&lt;/td&gt;<br>                &lt;td&gt;$&#123;book.b_intro&#125;&lt;/td&gt;<br>                &lt;td&gt;$&#123;book.b_inventory&#125;&lt;/td&gt;<br>                &lt;td&gt;&lt;a class=&quot;btn btn-default btn-sm&quot; href=&quot;update.html&quot;&gt;修改&lt;/a&gt;&amp;nbsp;<br>                    &lt;a class=&quot;btn btn-default btn-sm&quot; href=&quot;&quot;&gt;删除&lt;/a&gt;&lt;/td&gt;<br>            &lt;/tr&gt;<br>        &lt;/c:forEach&gt;<br><br>        &lt;tr&gt;<br>            &lt;td colspan=&quot;8&quot; align=&quot;center&quot;&gt;&lt;a class=&quot;btn btn-primary&quot; href=&quot;add.html&quot;&gt;添加书籍&lt;/a&gt;&lt;/td&gt;<br>        &lt;/tr&gt;<br>    &lt;/table&gt;<br>&lt;/div&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br><br><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-登录功能"><a href="#4-登录功能" class="headerlink" title="4.  登录功能"></a>4.  登录功能</h2><ol>
+<li><p><strong>将CheckCodeServlet拷贝到项目中，并将存储到session中的变量名改成realCode</strong></p>
+</li>
+<li><p><strong>UserDao 和 UserDaoImpl</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> *  与用户有关的数据库操作接口</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">UserDao</span> </span>&#123;<br>    <span class="hljs-function">User <span class="hljs-title">findUserByNameAndPassword</span><span class="hljs-params">(String userName, String password)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 与用户有关的数据库操作接口的实现类</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> lp</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserDaoImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">UserDao</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> JdbcTemplate template = <span class="hljs-keyword">new</span> JdbcTemplate(JDBCUtils.getDataSource());<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *  根据用户名和密码查询用户信息</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> userName 用户名</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> password 密码</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 用户对象，如果不存在则返回null</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">findUserByNameAndPassword</span><span class="hljs-params">(String userName, String password)</span> </span>&#123;<br>        String sql = <span class="hljs-string">&quot;select * from user where username=? and password = ?&quot;</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            User user = template.queryForObject(sql, <span class="hljs-keyword">new</span> BeanPropertyRowMapper&lt;&gt;(User.class), userName, password);<br>            <span class="hljs-keyword">return</span> user;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace();<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><strong>UserService 和 UserServiceImpl</strong></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> *  与用户有关的业务</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">UserService</span> </span>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *  用户登录的业务</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> userName 用户名</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> password 密码</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 用户对象</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function">User <span class="hljs-title">login</span><span class="hljs-params">(String userName, String password)</span></span>;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs haxe"><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * @author lp</span><br><span class="hljs-comment"> * @version 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserServiceImpl</span> <span class="hljs-keyword"><span class="hljs-keyword">implements</span> <span class="hljs-type">UserService</span></span> </span>&#123;<br>    UserDao userDao = <span class="hljs-keyword">new</span> <span class="hljs-type">UserDaoImpl</span>();<br>    @Override<br>    <span class="hljs-keyword">public</span> User login(<span class="hljs-keyword">String</span> userName, <span class="hljs-keyword">String</span> password) &#123;<br>        <span class="hljs-keyword">return</span> userDao.findUserByNameAndPassword(userName,password);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><strong>LoginServlet</strong></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> lp</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@WebServlet(&quot;/loginServlet&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LoginServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HttpServlet</span> </span>&#123;<br>    <span class="hljs-comment">//创建service层</span><br>    UserService userService = <span class="hljs-keyword">new</span> UserServiceImpl();<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br>        <span class="hljs-keyword">this</span>.doPost(req, resp);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doPost</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br>        <span class="hljs-comment">//设置编码集</span><br>        req.setCharacterEncoding(<span class="hljs-string">&quot;utf-8&quot;</span>);<br>        <span class="hljs-comment">//校验验证码</span><br>        String checkCode = req.getParameter(<span class="hljs-string">&quot;checkCode&quot;</span>);<br>        HttpSession session = req.getSession();<br>        String checkCode2 = (String) session.getAttribute(<span class="hljs-string">&quot;realCode&quot;</span>);<br>        <span class="hljs-comment">//确保验证码一次性</span><br>        session.removeAttribute(<span class="hljs-string">&quot;realCode&quot;</span>);<br>        <span class="hljs-keyword">if</span> (!checkCode2.equalsIgnoreCase(checkCode)) &#123; <span class="hljs-comment">//验证码不正确</span><br>            <span class="hljs-comment">//给出提示信息</span><br>            req.setAttribute(<span class="hljs-string">&quot;login_msg&quot;</span>, <span class="hljs-string">&quot;验证码错误&quot;</span>);<br>            <span class="hljs-comment">//跳转页面</span><br>            req.getRequestDispatcher(<span class="hljs-string">&quot;/login.jsp&quot;</span>).forward(req, resp);<br>            <span class="hljs-comment">//结束</span><br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-comment">//获取数据</span><br>        String username = req.getParameter(<span class="hljs-string">&quot;username&quot;</span>);<br>        String password = req.getParameter(<span class="hljs-string">&quot;password&quot;</span>);<br>        <span class="hljs-comment">//查询用户</span><br>        User loginUser = userService.login(username, password);<br>        <span class="hljs-comment">//判断</span><br>        <span class="hljs-keyword">if</span> (loginUser != <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-comment">//登录成功</span><br>            session.setAttribute(<span class="hljs-string">&quot;user&quot;</span>, loginUser);<br>            <span class="hljs-comment">//跳转：没有共享数据，所以直接重定向</span><br>            resp.sendRedirect(req.getContextPath()+<span class="hljs-string">&quot;/index.jsp&quot;</span>);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">//登录失败</span><br>            <span class="hljs-comment">//给出提示信息</span><br>            req.setAttribute(<span class="hljs-string">&quot;login_msg&quot;</span>, <span class="hljs-string">&quot;用户名或密码错误&quot;</span>);<br>            <span class="hljs-comment">//跳转页面</span><br>            req.getRequestDispatcher(<span class="hljs-string">&quot;/login.jsp&quot;</span>).forward(req, resp);<br>        &#125;<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>写好之后记得复制静态页面内到JSP页面中，并修改里面的内容</li>
+</ol>
+<p><font color="cornflowerblue">login.jsp:</font></p>
+<ol>
+<li>form 提交跳转路径</li>
+<li>验证码获取路径</li>
+<li>错误提示信息使用if选择结构包裹</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs jsp">&lt;%@ page contentType=<span class="hljs-string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="hljs-string">&quot;java&quot;</span> %&gt;<br>&lt;%@ taglib prefix=<span class="hljs-string">&quot;c&quot;</span> uri=<span class="hljs-string">&quot;http://java.sun.com/jsp/jstl/core&quot;</span> %&gt;<br>&lt;html lang=<span class="hljs-string">&quot;zh-CN&quot;</span>&gt;<br>&lt;head&gt;<br>    &lt;meta charset=<span class="hljs-string">&quot;utf-8&quot;</span>/&gt;<br>    &lt;meta http-equiv=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> content=<span class="hljs-string">&quot;IE=edge&quot;</span>/&gt;<br>    &lt;meta name=<span class="hljs-string">&quot;viewport&quot;</span> content=<span class="hljs-string">&quot;width=device-width, initial-scale=1&quot;</span>/&gt;<br>    &lt;title&gt;用户登录&lt;/title&gt;<br><br>    &lt;!-- <span class="hljs-number">1.</span> 导入CSS的全局样式 --&gt;<br>    &lt;link href=<span class="hljs-string">&quot;css/bootstrap.min.css&quot;</span> rel=<span class="hljs-string">&quot;stylesheet&quot;</span>&gt;<br>    &lt;!-- <span class="hljs-number">2.</span> jQuery导入，建议使用<span class="hljs-number">1.9</span>以上的版本 --&gt;<br>    &lt;script src=&quot;js/jquery-2.1.0.min.js&quot;&gt;&lt;/script&gt;<br>    &lt;!-- <span class="hljs-number">3.</span> 导入bootstrap的js文件 --&gt;<br>    &lt;script src=&quot;js/bootstrap.min.js&quot;&gt;&lt;/script&gt;<br>    &lt;script type=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;<br>    &lt;/script&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>&lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;jumbotron&quot;</span>&gt;<br>    &lt;h1&gt;啥都没有图书馆里系统&lt;/h1&gt;<br>    &lt;p&gt;Nothing Have Manager System&lt;/p&gt;<br><br>&lt;/div&gt;<br>&lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;container&quot;</span> style=<span class="hljs-string">&quot;width: 400px;&quot;</span>&gt;<br>    &lt;h3 style=&quot;text-align: center;&quot;&gt;管理员登录&lt;/h3&gt;<br>    &lt;form action=<span class="hljs-string">&quot;$&#123;pageContext.request.contextPath&#125;/loginServlet&quot;</span> method=<span class="hljs-string">&quot;post&quot;</span>&gt;<br>        &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;form-group&quot;</span>&gt;<br>            &lt;label for=&quot;user&quot;&gt;用户名：&lt;/label&gt;<br>            &lt;input type=<span class="hljs-string">&quot;text&quot;</span> name=<span class="hljs-string">&quot;username&quot;</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;form-control&quot;</span> id=<span class="hljs-string">&quot;user&quot;</span> placeholder=<span class="hljs-string">&quot;请输入用户名&quot;</span>/&gt;<br>        &lt;/div&gt;<br><br>        &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;form-group&quot;</span>&gt;<br>            &lt;label for=&quot;password&quot;&gt;密码：&lt;/label&gt;<br>            &lt;input type=<span class="hljs-string">&quot;password&quot;</span> name=<span class="hljs-string">&quot;password&quot;</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;form-control&quot;</span> id=<span class="hljs-string">&quot;password&quot;</span> placeholder=<span class="hljs-string">&quot;请输入密码&quot;</span>/&gt;<br>        &lt;/div&gt;<br><br>        &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;form-inline&quot;</span>&gt;<br>            &lt;label for=&quot;code&quot;&gt;验证码：&lt;/label&gt;<br>            &lt;input type=<span class="hljs-string">&quot;text&quot;</span> name=<span class="hljs-string">&quot;checkCode&quot;</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;form-control&quot;</span> id=<span class="hljs-string">&quot;checkCode&quot;</span> placeholder=<span class="hljs-string">&quot;请输入验证码&quot;</span> style=<span class="hljs-string">&quot;width: 120px;&quot;</span>/&gt;<br>            &lt;a href=&quot;javascript:refreshCode()&quot;&gt;&lt;img src=&quot;$&#123;pageContext.request.contextPath&#125;/checkCode&quot; title=&quot;看不清点击刷新&quot; id=&quot;code&quot;/&gt;&lt;/a&gt;<br>        &lt;/div&gt;<br>        &lt;hr/&gt;<br>        &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;form-group&quot;</span> style=<span class="hljs-string">&quot;text-align: center;&quot;</span>&gt;<br>            &lt;input <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;btn btn btn-primary&quot;</span> type=<span class="hljs-string">&quot;submit&quot;</span> value=<span class="hljs-string">&quot;登录&quot;</span>&gt;<br>        &lt;/div&gt;<br>    &lt;/form&gt;<br><br>    &lt;!-- 出错显示的信息框 --&gt;<br>    &lt;c:<span class="hljs-keyword">if</span> test=<span class="hljs-string">&quot;$&#123;not empty login_msg&#125;&quot;</span>&gt;<br>        &lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;alert alert-warning alert-dismissible&quot;</span> role=<span class="hljs-string">&quot;alert&quot;</span>&gt;<br>            &lt;button type=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;close&quot;</span> data-dismiss=<span class="hljs-string">&quot;alert&quot;</span> &gt;<br>                &lt;span&gt;&amp;times;&lt;/span&gt;<br>            &lt;/button&gt;<br>            &lt;strong&gt;$&#123;requestScope.login_msg&#125;&lt;/strong&gt;<br>        &lt;/div&gt;<br>    &lt;/c:if&gt;<br><br>&lt;/div&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br><br></code></pre></td></tr></table></figure>
+
+<p><font color="cornflowerblue">index.jsp：</font></p>
+<p>​    1. 添加用户信息的输出，并用<code>&lt;c:if&gt;</code>包裹</p>
+<h2 id="5-添加书籍"><a href="#5-添加书籍" class="headerlink" title="5. 添加书籍"></a>5. 添加书籍</h2><ol>
+<li><p><strong>修改list.jsp 中添加书籍的跳转路径，当点击添加书籍按钮时，跳转到add.jsp中</strong></p>
+</li>
+<li><p><strong>dao层</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> *  与书籍有关的数据库操作接口</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BookDao</span> </span>&#123;<br><br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *  向数据库中添加book信息</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> book 添加的book对象</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 成功或者失败</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">addBook</span><span class="hljs-params">(Book book)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> lp</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BookDaoImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">BookDao</span> </span>&#123;<br>    <span class="hljs-comment">//创建JDBCTemplate对象</span><br>  <span class="hljs-keyword">private</span> JdbcTemplate template = <span class="hljs-keyword">new</span> JdbcTemplate(JDBCUtils.getDataSource());<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *  获取图书列表</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    略<br>  <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *  向数据库中添加book信息</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> book 添加的book信息</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 成功或者失败</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">addBook</span><span class="hljs-params">(Book book)</span> </span>&#123;<br>        String sql = <span class="hljs-string">&quot;insert into book values(null,?,?,?,?)&quot;</span>;<br>        <span class="hljs-comment">//执行</span><br>        <span class="hljs-keyword">int</span> count = template.update(sql,<br>                book.getB_name(),<br>                book.getB_author(),<br>                book.getB_intro(),<br>                book.getB_inventory());<br>        <span class="hljs-keyword">if</span> (count &gt; <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>        &#125;<br><br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>service层</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 与书籍有关的业务</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BookService</span> </span>&#123;<br><br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *  向数据中添加书籍</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> book 添加的书籍对象</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 成功或失败</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">addBook</span><span class="hljs-params">(Book book)</span></span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> lp</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BookServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">BookService</span> </span>&#123;<br>    <span class="hljs-comment">//创建dao层对象</span><br>    BookDao bookDao = <span class="hljs-keyword">new</span> BookDaoImpl();<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Book&gt; <span class="hljs-title">findAllBooks</span><span class="hljs-params">()</span> </span>&#123;<br><br>        <span class="hljs-keyword">return</span> bookDao.findAllBooks();<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">addBook</span><span class="hljs-params">(Book book)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> bookDao.addBook(book);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure></li>
+<li><p><strong>addBookServlet</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@WebServlet(&quot;/addBookServlet&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddBookServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HttpServlet</span> </span>&#123;<br>    <span class="hljs-comment">//创建service层</span><br>    UserService userService = <span class="hljs-keyword">new</span> UserServiceImpl();<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br>        <span class="hljs-keyword">this</span>.doPost(req, resp);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doPost</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br>        <span class="hljs-comment">//设置参数</span><br>        req.setCharacterEncoding(<span class="hljs-string">&quot;utf-8&quot;</span>);<br>        <span class="hljs-comment">//获取数据</span><br>        Map&lt;String, String[]&gt; map = req.getParameterMap();<br>        <span class="hljs-keyword">for</span> (String key : map.keySet()) &#123;<br>            System.out.println(map.get(key));<br>        &#125;<br>        <span class="hljs-comment">//封装对象</span><br>        Book book = <span class="hljs-keyword">new</span> Book();<br>        <span class="hljs-keyword">try</span> &#123;<br>            BeanUtils.populate(book, map);<br>            System.out.println(book);<br>        &#125; <span class="hljs-keyword">catch</span> (IllegalAccessException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (InvocationTargetException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>        <span class="hljs-comment">//调用service方法</span><br>        BookService bookService = <span class="hljs-keyword">new</span> BookServiceImpl();<br>        bookService.addBook(book);<br><br>        <span class="hljs-comment">//添加成功后跳转到书籍列表</span><br>        resp.sendRedirect(req.getContextPath()+<span class="hljs-string">&quot;/bookListServlet&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="6-删除功能"><a href="#6-删除功能" class="headerlink" title="6. 删除功能"></a>6. 删除功能</h2><ol>
+<li><strong>找到list.jsp ，在foreach循环标签 找到删除按钮，修改跳转信息</strong></li>
+</ol>
+<p><img src="/color-ful/img/javaee/image-20210126223301276.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210126223301276"></p>
+<ol start="2">
+<li><p><strong>dao层</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> *  与书籍有关的数据库操作接口</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BookDao</span> </span>&#123;<br><br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 根据书籍id删除书籍</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> id 书籍b_id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">deleteById</span><span class="hljs-params">(String id)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> lp</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BookDaoImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">BookDao</span> </span>&#123;<br>    <span class="hljs-comment">//创建JDBCTemplate对象</span><br>  <span class="hljs-keyword">private</span> JdbcTemplate template = <span class="hljs-keyword">new</span> JdbcTemplate(JDBCUtils.getDataSource());<br>	<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">deleteById</span><span class="hljs-params">(String id)</span> </span>&#123;<br>        String sql = <span class="hljs-string">&quot;delete from book where b_id = ?&quot;</span>;<br>        template.update(sql, id);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>service层</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 与书籍有关的业务</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BookService</span> </span>&#123;<br><br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *  根据id删除书籍</span><br><span class="hljs-comment">      * <span class="hljs-doctag">@param</span> id 书籍b_id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">delete</span><span class="hljs-params">(String id)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> lp</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BookServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">BookService</span> </span>&#123;<br>    <span class="hljs-comment">//创建dao层对象</span><br>    BookDao bookDao = <span class="hljs-keyword">new</span> BookDaoImpl();<br><br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">delete</span><span class="hljs-params">(String id)</span> </span>&#123;<br>        bookDao.deleteById(id);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>deleteBookServlet</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@WebServlet(&quot;/deleteBookServlet&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DeleteBookServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HttpServlet</span> </span>&#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br>        <span class="hljs-keyword">this</span>.doPost(req, resp);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doPost</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br>        <span class="hljs-comment">//获取参数</span><br>        String b_id = req.getParameter(<span class="hljs-string">&quot;b_id&quot;</span>);<br>        <span class="hljs-comment">//调用删除的方法</span><br>        BookService service = <span class="hljs-keyword">new</span> BookServiceImpl();<br>        service.delete(b_id);<br>        <span class="hljs-comment">//删完之后重新请求bookListServlet</span><br>        resp.sendRedirect(req.getContextPath()+<span class="hljs-string">&quot;/bookListServlet&quot;</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><font color="red">优化：添加js ，在删除前给出确认提示</font></p>
+<p>在list.jsp中，将删除跳转的路径改成跳转至js的方法</p>
+<p><img src="/color-ful/img/javaee/image-20210126225605662.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210126225605662"></p>
+</li>
+</ol>
+<p>方法具体实现</p>
+<p><img src="/color-ful/img/javaee/image-20210126225736485.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210126225736485"></p>
+<h2 id="7-修改图书"><a href="#7-修改图书" class="headerlink" title="7. 修改图书"></a>7. 修改图书</h2><p>​        修改功能和其他功能不一样，因为，当你点击修改功能时，需要页面中就有书籍的信息的回显。所以我们不能直接跳转到修改页面，而是先跳转servlet,在通过转发到</p>
+<ol>
+<li><p> <strong>将静态页面转换成jsp页面</strong></p>
+</li>
+<li><p><strong>在list.jsp中设置 ，将修改按钮跳转路径改为查询指定用户信息的servlet</strong></p>
+<p>dao层  和 servlet</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> Book <span class="hljs-title">findBookById</span><span class="hljs-params">(String id)</span> </span>&#123;<br>    String sql = <span class="hljs-string">&quot;select * from book where b_id=?&quot;</span>;<br>    Book book = template.queryForObject(sql, <span class="hljs-keyword">new</span> BeanPropertyRowMapper&lt;&gt;(Book.class), id);<br>    <span class="hljs-keyword">return</span> book;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> lp</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@WebServlet(&quot;/findBookServlet&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FindBookServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HttpServlet</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br>        <span class="hljs-keyword">this</span>.doPost(req, resp);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doPost</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br>        <span class="hljs-comment">//获取信息</span><br>        String b_id = req.getParameter(<span class="hljs-string">&quot;b_id&quot;</span>);<br>        <span class="hljs-comment">//调用方法</span><br>        BookService bookService = <span class="hljs-keyword">new</span> BookServiceImpl();<br>        Book book = bookService.findBookById(b_id);<br><br>        req.setAttribute(<span class="hljs-string">&quot;book&quot;</span>, book);<br>        req.getRequestDispatcher(<span class="hljs-string">&quot;/update.jsp&quot;</span>).forward(req, resp);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li> <strong>修改 update.jsp 中 form表单的 action属性</strong></li>
+</ol>
+<p><img src="/color-ful/img/javaee/image-20210127003219881.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127003219881"></p>
+<ol start="4">
+<li><strong>dao 层 和Servlet层</strong></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">updateBook</span><span class="hljs-params">(Book book)</span> </span>&#123;<br>    String sql = <span class="hljs-string">&quot;update book set b_name=?,b_author=?,b_intro=?,b_inventory=? where b_id=?&quot;</span>;<br>    <span class="hljs-keyword">int</span> update = template.update(sql,<br>            book.getB_name(),<br>            book.getB_author(),<br>            book.getB_intro(),<br>            book.getB_inventory(),<br>            book.getB_id());<br>   <br>   <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@WebServlet(&quot;/updateBookServlet&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UpdateBookServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HttpServlet</span> </span>&#123;<br><br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br>        <span class="hljs-keyword">this</span>.doPost(req, resp);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doPost</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br>        <span class="hljs-comment">//设置编码集</span><br>        req.setCharacterEncoding(<span class="hljs-string">&quot;utf-8&quot;</span>);<br>        <span class="hljs-comment">//获取参数</span><br>        Map&lt;String, String[]&gt; map = req.getParameterMap();<br>        <span class="hljs-comment">//封装对象</span><br>        Book book = <span class="hljs-keyword">new</span> Book();<br>        <span class="hljs-keyword">try</span> &#123;<br>            BeanUtils.populate(book, map);<br>        &#125; <span class="hljs-keyword">catch</span> (IllegalAccessException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (InvocationTargetException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>        <span class="hljs-comment">//调用方法</span><br>        BookService bookService = <span class="hljs-keyword">new</span> BookServiceImpl();<br>        bookService.updateBook(book);<br>        <span class="hljs-comment">//重定向到图书列表</span><br>        resp.sendRedirect(req.getContextPath()+<span class="hljs-string">&quot;/bookListServlet&quot;</span>);<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="8-删除选中"><a href="#8-删除选中" class="headerlink" title="8. 删除选中"></a>8. 删除选中</h2><ol>
+<li> <strong>因为form表单提交会自动提交被选择的条目，所以我们不必编写js只需要给table包裹一个大的form，当我们点击提交按钮时，让该表单提交即可</strong></li>
+</ol>
+<p><img src="/color-ful/img/javaee/image-20210127004842268.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127004842268"></p>
+<ol start="2">
+<li><strong>我们需要在点击删除选中按钮后，提交该表单，我们给删除选中按钮绑定单击事件</strong></li>
+</ol>
+<p><img src="/color-ful/img/javaee/image-20210127005427561.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127005427561"></p>
+<p>​    </p>
+<p>​        编写对应的js</p>
+<p>​    <img src="/color-ful/img/javaee/image-20210127005924613.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127005924613"></p>
+<p>写完之后，可以先去页面尝试删除，虽然会报错，但是我们可以通过浏览器抓包工具看是否有对应的请求体数据</p>
+<p><img src="/color-ful/img/javaee/image-20210127010057406.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127010057406"></p>
+<ol start="3">
+<li><strong>编写service层 和 Servlet层，dao不必编写，因为我们可以调用之前写的方法</strong></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BookServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">BookService</span> </span>&#123;<br>    <span class="hljs-comment">//创建dao层对象</span><br>    BookDao bookDao = <span class="hljs-keyword">new</span> BookDaoImpl();<br><br><br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">deleteAnyBooks</span><span class="hljs-params">(String[] b_ids)</span> </span>&#123;<br>        <span class="hljs-keyword">for</span> (String b_id : b_ids) &#123;<br>            bookDao.deleteById(b_id);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@WebServlet(&quot;/delSelectedServlet&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DeleteSelectedServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HttpServlet</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br>        <span class="hljs-keyword">this</span>.doPost(req, resp);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doPost</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br>        <span class="hljs-comment">//获取批量删除书籍的id</span><br>        String[] b_ids = req.getParameterValues(<span class="hljs-string">&quot;b_id&quot;</span>);<br>        <span class="hljs-comment">//调用方法</span><br>        BookService service = <span class="hljs-keyword">new</span> BookServiceImpl();<br>        service.deleteAnyBooks(b_ids);<br>        <span class="hljs-comment">//重定向到书籍列表界面</span><br>        resp.sendRedirect(req.getContextPath()+<span class="hljs-string">&quot;/bookListServlet&quot;</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="9-分页查询"><a href="#9-分页查询" class="headerlink" title="9. 分页查询"></a>9. 分页查询</h2><p><strong>分析：</strong></p>
+<p>​    根据已有的静态页面我们分析出，要完成分页显示，需要以下几个参数</p>
+<ol>
+<li>总记录数 （int totalCount） ：  服务器可以自行查出，不需要客户端传递数据</li>
+<li>总页数 （int totalPage） ： 服务器无法自行完成，<font color="red">需要客户端传递数据：每页显示的条数（rows）</font><ul>
+<li>totalPage = totalCount % 每页显示条数 == 0 ？totalCount / 每页显示条数 : ( totalCount /每页显示条数 )+1</li>
+</ul>
+</li>
+<li>每页的数据（List list）</li>
+<li>当前页码 （int currentPage）- <font color="red">需要客户端提供给服务器</font></li>
+<li>分页查询语句 limit 开始索引，查几条：<ul>
+<li>开始索引：<em><em>公式（currentPage-1）</em> 每页显示的条数</em>*</li>
+<li>查几条： rows前面已经传递</li>
+</ul>
+</li>
+</ol>
+<p><strong>处理：</strong></p>
+<p>​    根据分析出页面所要的元素，我们可以将这些属性封装到一个类中：PageBean 分页对象</p>
+<p><strong><font color="cornflowerblue">peageBean</font></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> org.wdzl.pojo;<br><br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 分页对象</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PageBean</span>&lt;<span class="hljs-title">T</span>&gt; </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> totalCount; <span class="hljs-comment">// 总记录数</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> totalPage ; <span class="hljs-comment">// 总页码</span><br>    <span class="hljs-keyword">private</span> List&lt;T&gt; list ; <span class="hljs-comment">// 每页的数据</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> currentPage ; <span class="hljs-comment">//当前页码</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> rows;<span class="hljs-comment">//每页显示的记录数</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getTotalCount</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> totalCount;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setTotalCount</span><span class="hljs-params">(<span class="hljs-keyword">int</span> totalCount)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.totalCount = totalCount;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getTotalPage</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> totalPage;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setTotalPage</span><span class="hljs-params">(<span class="hljs-keyword">int</span> totalPage)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.totalPage = totalPage;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;T&gt; <span class="hljs-title">getList</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> list;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setList</span><span class="hljs-params">(List&lt;T&gt; list)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.list = list;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getCurrentPage</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> currentPage;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCurrentPage</span><span class="hljs-params">(<span class="hljs-keyword">int</span> currentPage)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.currentPage = currentPage;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getRows</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> rows;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setRows</span><span class="hljs-params">(<span class="hljs-keyword">int</span> rows)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.rows = rows;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;PageBean&#123;&quot;</span> +<br>                <span class="hljs-string">&quot;totalCount=&quot;</span> + totalCount +<br>                <span class="hljs-string">&quot;, totalPage=&quot;</span> + totalPage +<br>                <span class="hljs-string">&quot;, list=&quot;</span> + list +<br>                <span class="hljs-string">&quot;, currentPage=&quot;</span> + currentPage +<br>                <span class="hljs-string">&quot;, rows=&quot;</span> + rows +<br>                <span class="hljs-string">&#x27;&#125;&#x27;</span>;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><strong><font color="red">分页流程图解：</font></strong></p>
+<p><img src="/color-ful/img/javaee/image-20210127024959940.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127024959940"></p>
+<p> 按着图解完成需求</p>
+<p><font color="cornflowerblue"><strong>后端编写：</strong></font></p>
+<ol>
+<li>FindBookByPageServlet</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@WebServlet(&quot;/findBookByPageServlet&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FindBookByPageServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HttpServlet</span> </span>&#123;<br><br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br>        <span class="hljs-keyword">this</span>.doPost(req, resp);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doPost</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br>        <span class="hljs-comment">//获取参数</span><br>        String currentPage = req.getParameter(<span class="hljs-string">&quot;currentPage&quot;</span>);<br>        String rows = req.getParameter(<span class="hljs-string">&quot;rows&quot;</span>);<br>        <span class="hljs-comment">//排除第一次访问没有参数报错问题</span><br>        <span class="hljs-keyword">if</span> (currentPage == <span class="hljs-keyword">null</span> || <span class="hljs-string">&quot;&quot;</span>.equals(currentPage)) &#123;<br>            currentPage = <span class="hljs-string">&quot;1&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (rows == <span class="hljs-keyword">null</span> || <span class="hljs-string">&quot;&quot;</span>.equals(rows)) &#123;<br>            rows = <span class="hljs-string">&quot;4&quot;</span>;<br>        &#125;<br><br>        <span class="hljs-comment">//调用方法</span><br>        BookService bookService = <span class="hljs-keyword">new</span> BookServiceImpl();<br>        PageBean&lt;Book&gt; pageBean = bookService.findBookByPage(currentPage, rows);<br>        System.out.println(pageBean);<br>        <span class="hljs-comment">//存储数据</span><br>        req.setAttribute(<span class="hljs-string">&quot;pageBean&quot;</span>, pageBean);<br>        <span class="hljs-comment">//转发</span><br>        req.getRequestDispatcher(<span class="hljs-string">&quot;/list.jsp&quot;</span>).forward(req, resp);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>BookServiceImpl</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BookServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">BookService</span> </span>&#123;<br>    <span class="hljs-comment">//创建dao层对象</span><br>    BookDao bookDao = <span class="hljs-keyword">new</span> BookDaoImpl();<br><br><br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> PageBean&lt;Book&gt; <span class="hljs-title">findBookByPage</span><span class="hljs-params">(String _currentPage, String _rows)</span> </span>&#123;<br>        <span class="hljs-comment">//将字符串转换为int</span><br>        <span class="hljs-keyword">int</span> currentPage = Integer.parseInt(_currentPage);<br>        <span class="hljs-keyword">int</span> rows = Integer.parseInt(_rows);<br>        <span class="hljs-comment">//创建PageBean</span><br>        PageBean&lt;Book&gt; pageBean = <span class="hljs-keyword">new</span> PageBean&lt;&gt;();<br>        <span class="hljs-comment">//设置属性</span><br>        pageBean.setCurrentPage(currentPage);<br>        pageBean.setCurrentPage(rows);<br>        <span class="hljs-comment">//调用查询总记录数的方法</span><br>        <span class="hljs-keyword">int</span> totalCount = bookDao.findTotalCount();<br>        pageBean.setTotalCount(totalCount);<br>        <span class="hljs-comment">//计算开始的索引</span><br>        <span class="hljs-keyword">int</span> start = (currentPage - <span class="hljs-number">1</span>) * rows;<br>        <span class="hljs-comment">//调用分页查询的方法</span><br>       List&lt;Book&gt; list = bookDao.findByList(start, rows);<br>        pageBean.setList(list);<br>        <span class="hljs-comment">//计算总页码</span><br>        <span class="hljs-keyword">int</span> totalPage = totalCount % rows== <span class="hljs-number">0</span>?totalCount/rows : totalCount/rows+<span class="hljs-number">1</span>;<br>        pageBean.setTotalPage(totalPage);<br>        <span class="hljs-keyword">return</span> pageBean;<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>BookDaoImpl</li>
+</ol>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * @author lp</span><br><span class="hljs-comment"> * @version 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-built_in">public</span> <span class="hljs-keyword">class</span> BookDaoImpl implements BookDao &#123;<br>    //创建JDBCTemplate对象<br>  private JdbcTemplate template = <span class="hljs-built_in">new</span> JdbcTemplate(JDBCUtils.getDataSource());<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *  获取总记录数</span><br><span class="hljs-comment">     * @return</span><br><span class="hljs-comment">     */</span><br>    @Override<br>    <span class="hljs-built_in">public</span> <span class="hljs-type">int</span> findTotalCount() &#123;<br>        String <span class="hljs-keyword">sql</span> = &quot;select count(b_id) from book&quot;;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">template</span>.queryForObject(<span class="hljs-keyword">sql</span>, <span class="hljs-type">Integer</span>.<span class="hljs-keyword">class</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *  分页查询</span><br><span class="hljs-comment">     * @param start 开始的记录数</span><br><span class="hljs-comment">     * @param rows  每页显示多少条</span><br><span class="hljs-comment">     * @return</span><br><span class="hljs-comment">     */</span><br>    @Override<br>    <span class="hljs-built_in">public</span> List&lt;Book&gt; findByList(<span class="hljs-type">int</span> <span class="hljs-keyword">start</span>, <span class="hljs-type">int</span> <span class="hljs-keyword">rows</span>) &#123;<br>        String <span class="hljs-keyword">sql</span> = &quot;select * from book limit ?,?&quot;;<br>        List&lt;Book&gt; list = <span class="hljs-keyword">template</span>.query(<span class="hljs-keyword">sql</span>, <span class="hljs-built_in">new</span> BeanPropertyRowMapper&lt;Book&gt;(Book.<span class="hljs-keyword">class</span>), <span class="hljs-keyword">start</span>, <span class="hljs-keyword">rows</span>);<br>        <span class="hljs-keyword">return</span> list;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>写完之后我们只需要通过浏览器直接方法对应servlet并携带对应的值即可</p>
+<p><code>http://localhost:8080/book/findBookByPageServlet?currentPage=2&amp;rows=4</code></p>
+<p><font color="cornflowerblue"><strong>前端编写</strong></font></p>
+<ol>
+<li><strong>第一处：修改foreach 遍历的对象</strong></li>
+</ol>
+<p><img src="/color-ful/img/javaee/image-20210127033535169.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127033535169"></p>
+<ol start="2">
+<li> <strong>第二处：修改总记录数和总页码</strong></li>
+</ol>
+<p><img src="/color-ful/img/javaee/image-20210127033721731.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127033721731"></p>
+<ol start="3">
+<li><p><strong>第三处 ：将假分页替换为真实的,并添加被选中效果</strong></p>
+<p><img src="/color-ful/img/javaee/image-20210127040607639.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127040607639"></p>
+</li>
+<li><p><strong>将index.jsp的跳转路径修改为当前serlvet</strong></p>
+</li>
+</ol>
+<p><img src="/color-ful/img/javaee/image-20210127035455087.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127035455087"></p>
+<ol start="5">
+<li><p><strong>添加上一页和下一页，并对上一页进行限制，当第一页时不能再继续点击上一页</strong></p>
+<p>上一页</p>
+</li>
+</ol>
+<p><img src="/color-ful/img/javaee/image-20210127041941585.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127041941585"></p>
+<p>​        下一页</p>
+<p><img src="/color-ful/img/javaee/image-20210127042031692.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127042031692"></p>
+<p>​        后台处理：BookServiceImpl</p>
+<p><img src="/color-ful/img/javaee/image-20210127042328247.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127042328247"></p>
+<h2 id="10-组合条件查询"><a href="#10-组合条件查询" class="headerlink" title="10. 组合条件查询"></a>10. 组合条件查询</h2><p><strong>首先我们先了解一下组合条件查询的语句</strong>，我们不但要拼接条件，还要进行分页</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> book <span class="hljs-keyword">where</span> b_name <span class="hljs-keyword">like</span> &quot;%j%&quot; <span class="hljs-keyword">and</span> b_author <span class="hljs-keyword">like</span> &quot;%高%&quot; limit <span class="hljs-number">0</span>,<span class="hljs-number">3</span> ;<br></code></pre></td></tr></table></figure>
+
+<p>该需求的难点就在于<font color="red">如何拼接sql语句</font>！</p>
+<p>​        我们通过页面观察，组合查询有三个输入框 书名，作者，库存 ，在实际项目运行中，我们无法预测用户会组合几个条件。所以我们需要想办法解决sql拼接问题。</p>
+<p>​        这里告诉大家一个小技巧，因为一句sql只能有一个关键字where，但是可以有多个and，所以我们首先写出公共部分：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> book <span class="hljs-keyword">where</span> <span class="hljs-number">1</span>=<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<p>这样写的好处是可以将后面条件的拼接进行统一处理，简化编码</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> book <span class="hljs-keyword">where</span> <span class="hljs-keyword">where</span> <span class="hljs-keyword">and</span> b_name <span class="hljs-keyword">like</span> <span class="hljs-string">&quot;%j%&quot;</span> <span class="hljs-keyword">and</span> b_author <span class="hljs-keyword">like</span> <span class="hljs-string">&quot;%高%&quot;</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">3</span> ;<br></code></pre></td></tr></table></figure>
+
+<p><strong>第二点，我们要明确查询后给我们返回的是一个什么对象？</strong></p>
+<p>当然是PageBean对象，因为组合条件查询的结果也是带分页效果的，所以是PageBean对象</p>
+<ol>
+<li><p><strong>将list.jsp中对应的组合条件查询的form表单跳转路径进行修改</strong></p>
+<p><img src="/color-ful/img/javaee/image-20210127171226936.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127171226936"></p>
+</li>
+<li><p><strong>接下来去servlet中修改代码，并且再最前面添加编码集，否则会乱码</strong></p>
+</li>
+</ol>
+<p><img src="/color-ful/img/javaee/image-20210127171602743.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127171602743"></p>
+<ol start="3">
+<li> <strong>在 BookServiceImpl 中修改相应的方法</strong></li>
+</ol>
+<p>   添加参数后，alt+回车，可以对方法进行重构</p>
+<p><img src="/color-ful/img/javaee/image-20210127172004836.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127172004836"></p>
+<ol start="4">
+<li> <strong>接着去Dao层的实现类中修改对应的两个方法</strong></li>
+</ol>
+<p><font color="cornflowerblue">findTotalCount()方法</font></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">    *  获取总记录数</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">    * <span class="hljs-doctag">@param</span> condition</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-meta">@Override</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findTotalCount</span><span class="hljs-params">(Map&lt;String, String[]&gt; condition)</span> </span>&#123;<br>       <span class="hljs-comment">//定义一个模板sql</span><br>       String sql = <span class="hljs-string">&quot;select count(*) from book where 1=1 &quot;</span>;<br>       <span class="hljs-comment">//拼接sql的容器</span><br>       StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder(sql);<br>       <span class="hljs-comment">//存储参数的集合</span><br>       List&lt;Object&gt; params = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>       <span class="hljs-comment">//遍历map集合</span><br>       Set&lt;String&gt; keys= condition.keySet();<br>       <span class="hljs-keyword">for</span> (String key : keys) &#123;<br>           <span class="hljs-comment">//排除分页的参数</span><br>           <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;currentPage&quot;</span>.equals(key) || <span class="hljs-string">&quot;rows&quot;</span>.equals(key)) &#123;<br>               <span class="hljs-keyword">continue</span>;<br>           &#125;<br>            <span class="hljs-comment">//因为我们的输入框没有重复name属性的，所以我们可以直接拿数组的第一个值</span><br>           String value = condition.get(key)[<span class="hljs-number">0</span>];<br>           <span class="hljs-comment">//判断value,如果有值则进行拼接</span><br>           <span class="hljs-keyword">if</span> (value != <span class="hljs-keyword">null</span> || <span class="hljs-string">&quot;&quot;</span>.equals(value)) &#123;<br>               sb.append(<span class="hljs-string">&quot; and &quot;</span> + key + <span class="hljs-string">&quot; like ? &quot;</span>);<br>               params.add(<span class="hljs-string">&quot;%&quot;</span>+value+<span class="hljs-string">&quot;%&quot;</span>);<br>           &#125;<br>       &#125;<br>       <span class="hljs-comment">//查看一下sql</span><br>       System.out.println(sb.toString());<br>       System.out.println(params);<br>       <span class="hljs-keyword">return</span> template.queryForObject(sb.toString(), Integer.class,params.toArray());<br>   &#125;<br></code></pre></td></tr></table></figure>
+
+<p>该方法写好后，我们可以尝试着运行一下页面，看是否可以查询出总记录数 和 一些数据</p>
+<p><font color="cornflowerblue">findByPage()</font></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs sql"> <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *  分页查询</span><br><span class="hljs-comment">     * @param start 开始的记录数</span><br><span class="hljs-comment">     * @param rows  每页显示多少条</span><br><span class="hljs-comment">     * @param condition</span><br><span class="hljs-comment">     * @return</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-variable">@Override</span><br>    public List&lt;Book&gt; findByList(int start, int rows, Map&lt;String, String[]&gt; condition) &#123;<br>        String <span class="hljs-keyword">sql</span> <span class="hljs-operator">=</span> &quot;select * from book where 1=1 &quot;;<br>        <span class="hljs-operator">/</span><span class="hljs-operator">/</span>拼接<span class="hljs-keyword">sql</span>的容器<br>        StringBuilder sb <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> StringBuilder(<span class="hljs-keyword">sql</span>);<br>        <span class="hljs-operator">/</span><span class="hljs-operator">/</span>存储参数的集合<br>        List<span class="hljs-operator">&lt;</span>Object<span class="hljs-operator">&gt;</span> params <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> ArrayList<span class="hljs-operator">&lt;&gt;</span>();<br>        <span class="hljs-operator">/</span><span class="hljs-operator">/</span>遍历map集合<br>        <span class="hljs-keyword">Set</span><span class="hljs-operator">&lt;</span>String<span class="hljs-operator">&gt;</span> keys<span class="hljs-operator">=</span> condition.keySet();<br>        for (String key : keys) &#123;<br>            <span class="hljs-operator">/</span><span class="hljs-operator">/</span>排除分页的参数<br>            if (&quot;currentPage&quot;.equals(key) || &quot;rows&quot;.equals(key)) &#123;<br>                continue;<br>            &#125;<br>            <span class="hljs-operator">/</span><span class="hljs-operator">/</span>因为我们的输入框没有重复name属性的，所以我们可以直接拿数组的第一个值<br>            String <span class="hljs-keyword">value</span> <span class="hljs-operator">=</span> condition.get(key)[<span class="hljs-number">0</span>];<br>            <span class="hljs-operator">/</span><span class="hljs-operator">/</span>判断<span class="hljs-keyword">value</span>,如果有值则进行拼接<br>            if (value != null || &quot;&quot;.equals(value)) &#123;<br>                sb.append(&quot; and &quot; <span class="hljs-operator">+</span> key <span class="hljs-operator">+</span> &quot; like ? &quot;);<br>                params.add(&quot;%&quot;<span class="hljs-operator">+</span><span class="hljs-keyword">value</span><span class="hljs-operator">+</span>&quot;%&quot;);<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-operator">/</span><span class="hljs-operator">/</span>添加分页查询<br>        sb.append(&quot; limit ?,?&quot;);<br>        <span class="hljs-operator">/</span><span class="hljs-operator">/</span>添加分页的参数<br>        params.add(<span class="hljs-keyword">start</span>);<br>        params.add(<span class="hljs-keyword">rows</span>);<br><br>        List<span class="hljs-operator">&lt;</span>Book<span class="hljs-operator">&gt;</span> list <span class="hljs-operator">=</span> template.query(sb.toString(), <span class="hljs-keyword">new</span> BeanPropertyRowMapper<span class="hljs-operator">&lt;</span>Book<span class="hljs-operator">&gt;</span>(Book.class), params.toArray());<br>        <span class="hljs-keyword">return</span> list;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这两个方法修改完毕后，我们的符合条件查询基本就完成了。但是还有很多细节需要优化。</p>
+<p><font color="red">优化1：搜寻信息回显</font></p>
+<ol>
+<li><strong>我们只需要在获取参数的servlet中将参数再存到request对象中即可</strong></li>
+</ol>
+<p><img src="/color-ful/img/javaee/image-20210127213312691.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127213312691"></p>
+<ol start="2">
+<li><strong>去list.jsp中再对应标签读取对应的值</strong></li>
+</ol>
+<p><img src="/color-ful/img/javaee/image-20210127213701536.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127213701536"></p>
+<p><font color="red">优化2：分页问题</font></p>
+<p>这个问题我们只需要再分页标签对应的跳转属性，将搜索的参数继续携带即可</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;$&#123;pageContext.request.contextPath&#125;/findBookByPageServlet?currentPage=$&#123;i&#125;&amp;rows=4&amp;b_name=$&#123;requestScope.condition.b_name[0]&#125;&amp;b_author=$&#123;requestScope.condition.b_author[0]&#125;&amp;b_inventory=$&#123;requestScope.condition.b_inventory[0]&#125;&quot;</span>&gt;</span>$&#123;i&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/color-ful/img/javaee/image-20210127220632451.png" srcset="/color-ful/img/loading.gif" lazyload alt="image-20210127220632451"></p>
+<h2 id="11-过滤器：登录验证"><a href="#11-过滤器：登录验证" class="headerlink" title="11. 过滤器：登录验证"></a>11. 过滤器：登录验证</h2><p><strong>分析：哪些资源需要过滤，哪些资源不需要过滤</strong></p>
+<pre><code> 1. 与登录有关的页面不需要过滤，直接放行
+  - 无关，判断是否登录
+ 2. 判断是否又登录信息：
+  - 有：直接放行
+  - 没有，跳转登录页面
+</code></pre>
+<p><strong>实现：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@WebFilter(&quot;/*&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LoginFilter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Filter</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">(FilterConfig filterConfig)</span> <span class="hljs-keyword">throws</span> ServletException </span>&#123;<br><br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doFilter</span><span class="hljs-params">(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)</span> <span class="hljs-keyword">throws</span> IOException, ServletException </span>&#123;<br>          <span class="hljs-comment">//1.将request对象 和 response对象强转为Http协议的实现类对象</span><br>        HttpServletRequest request = (HttpServletRequest) servletRequest;<br>        HttpServletResponse response = (HttpServletResponse) servletResponse;<br>        <span class="hljs-comment">//2.获取资源请求路径</span><br>        String uri = request.getRequestURI();<br>        <span class="hljs-comment">//排除与登录相关的，不光是页面还要排除js，css,字体，图片，本案例中校验码</span><br>        <span class="hljs-keyword">if</span> (uri.contains(<span class="hljs-string">&quot;/login.jsp&quot;</span>)<br>                ||uri.contains(<span class="hljs-string">&quot;/loginServlet&quot;</span>)<br>                ||uri.contains(<span class="hljs-string">&quot;/js/&quot;</span>)<br>                ||uri.contains(<span class="hljs-string">&quot;/css/&quot;</span>)<br>                ||uri.contains(<span class="hljs-string">&quot;/fonts/&quot;</span>)<br>                ||uri.contains(<span class="hljs-string">&quot;/checkCode&quot;</span>)<br>        ) &#123;<br>            <span class="hljs-comment">//包含，则与登录有关，放行</span><br>            filterChain.doFilter(request, response);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">//不包含，则判断是否包含用户信息</span><br>            HttpSession session = request.getSession();<br>            Object user = session.getAttribute(<span class="hljs-string">&quot;user&quot;</span>);<br>            <span class="hljs-comment">//判断用户是否为null</span><br>            <span class="hljs-keyword">if</span> (user != <span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-comment">//放行</span><br>                filterChain.doFilter(request, response);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">//没有登录，跳转到登录页面</span><br>                request.setAttribute(<span class="hljs-string">&quot;login_msg&quot;</span>,<span class="hljs-string">&quot;您没有登录，请登录&quot;</span>);<br>                request.getRequestDispatcher(<span class="hljs-string">&quot;/login.jsp&quot;</span>).forward(request,response);<br>            &#125;<br><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">destroy</span><span class="hljs-params">()</span> </span>&#123;<br><br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="13-文件上传"><a href="#13-文件上传" class="headerlink" title="13. 文件上传"></a>13. 文件上传</h2><p>练习：</p>
+<p>upload.jsp</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;h1&gt;文件上传实例 &lt;/h1&gt;<br>&lt;form method=<span class="hljs-string">&quot;post&quot;</span> action=<span class="hljs-string">&quot;$&#123;pageContext.request.contextPath&#125;/uploadServlet&quot;</span> enctype=<span class="hljs-string">&quot;multipart/form-data&quot;</span>&gt;<br>    选择一个文件:<br>    &lt;input type=<span class="hljs-string">&quot;file&quot;</span> name=<span class="hljs-string">&quot;uploadFile&quot;</span>/&gt;<br>    &lt;br/&gt;&lt;br/&gt;<br>    &lt;input type=<span class="hljs-string">&quot;text&quot;</span> name=<span class="hljs-string">&quot;name&quot;</span>&gt;<br>    &lt;input type=<span class="hljs-string">&quot;submit&quot;</span> value=<span class="hljs-string">&quot;上传&quot;</span>/&gt;<br>    $&#123;requestScope.upload_msg&#125;<br>    &lt;img style=<span class="hljs-string">&quot;width: 200px;height: auto&quot;</span><br>         src=<span class="hljs-string">&quot;$&#123;pageContext.request.contextPath&#125;/upload/$&#123;requestScope.filename&#125;&quot;</span> alt=<span class="hljs-string">&quot;缩略图&quot;</span>&gt;<br>&lt;/form&gt;<br>$&#123;requestScope.name&#125;<br>&lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+
+<p>UploadServlet</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> lp</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@WebServlet(&quot;/uploadServlet&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UploadServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HttpServlet</span> </span>&#123;<br><br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br>        <span class="hljs-keyword">this</span>.doPost(req, resp);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doPost</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;<br><br>        <span class="hljs-comment">//判断表单是否包含上传组件</span><br>        <span class="hljs-keyword">boolean</span> multipartContent = ServletFileUpload.isMultipartContent(req);<br>        <span class="hljs-keyword">if</span> (multipartContent) &#123;<br>            <span class="hljs-comment">//获取ServletFileUpload对象</span><br>            FileItemFactory factory = <span class="hljs-keyword">new</span> DiskFileItemFactory();<br>            ServletFileUpload upload = <span class="hljs-keyword">new</span> ServletFileUpload(factory);<br><br>            <span class="hljs-comment">//中文处理</span><br>            upload.setHeaderEncoding(<span class="hljs-string">&quot;UTF-8&quot;</span>);<br>            <span class="hljs-comment">//设置存储路径</span><br>            String uploadPath = getServletContext().getRealPath(<span class="hljs-string">&quot;/upload/&quot;</span>);<br>            <span class="hljs-comment">//如果目录不存在则直接创建</span><br>            File uploadDir = <span class="hljs-keyword">new</span> File(uploadPath);<br>            <span class="hljs-keyword">if</span> (!uploadDir.exists()) &#123;<br>                uploadDir.mkdir();<br>            &#125;<br><br>            <span class="hljs-comment">//解析请求内容，提取文件数据</span><br>            <span class="hljs-keyword">try</span> &#123;<br>                List&lt;FileItem&gt; formItems = upload.parseRequest(req);<br>                <span class="hljs-comment">//</span><br>                <span class="hljs-keyword">if</span> (formItems != <span class="hljs-keyword">null</span> &amp;&amp; formItems.size() &gt; <span class="hljs-number">0</span>) &#123;<br>                    <span class="hljs-comment">//遍历表单数据</span><br>                    <span class="hljs-keyword">for</span> (FileItem fileItem : formItems) &#123;<br>                        <span class="hljs-comment">//判断该对象中封装的数据是文本表单字段还是文件表单字段,</span><br>                        <span class="hljs-comment">//true:文本，false:文件</span><br>                        <span class="hljs-keyword">if</span> (!fileItem.isFormField()) &#123;<br>                            <span class="hljs-comment">//组装上传路径</span><br>                            String fileName = fileItem.getName();<br>                            String filePath = uploadPath + fileName;<br>                            System.out.println(filePath);<br>                            <span class="hljs-comment">//上传文件</span><br>                            fileItem.write(<span class="hljs-keyword">new</span> File(filePath));<br>                            <span class="hljs-comment">//存储响应信息</span><br>                            req.setAttribute(<span class="hljs-string">&quot;upload_msg&quot;</span>, <span class="hljs-string">&quot;上传成功&quot;</span>);<br>                            req.setAttribute(<span class="hljs-string">&quot;filename&quot;</span>, fileName);<br>                        &#125; <span class="hljs-keyword">else</span> &#123;<br>                            <span class="hljs-comment">//普通表单元素</span><br>                            req.setAttribute(<span class="hljs-string">&quot;name&quot;</span>,<span class="hljs-keyword">new</span> String(fileItem.get()));<br>                        &#125;<br>                    &#125;<br>                &#125;<br><br><br>            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                e.printStackTrace();<br>                req.setAttribute(<span class="hljs-string">&quot;upload_msg&quot;</span>, <span class="hljs-string">&quot;上传失败，请稍后重试&quot;</span>);<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">//跳转回主页面</span><br>        req.getRequestDispatcher(<span class="hljs-string">&quot;/upload.jsp&quot;</span>).forward(req,resp);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><strong><font color="cornflowerblue">用户注册，并上传头像</font></strong></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/color-ful/categories/JavaEE-%E4%BA%8C%E9%98%B6/">JavaEE 二阶</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/color-ful/tags/JSP/">JSP</a>
+                    
+                      <a class="hover-with-bg" href="/color-ful/tags/Servlet/">Servlet</a>
+                    
+                      <a class="hover-with-bg" href="/color-ful/tags/sql/">sql</a>
+                    
+                      <a class="hover-with-bg" href="/color-ful/tags/jdbc/">jdbc</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/color-ful/2020/01/17/2.JDBC/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JDBC</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/color-ful/2020/01/17/3.JSP%20+%20Servlet/">
+                        <span class="hidden-mobile">JSP+Servlet</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/color-ful/js/debouncer.js" ></script>
+<script  src="/color-ful/js/events.js" ></script>
+<script  src="/color-ful/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/color-ful/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/color-ful/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/color-ful/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/color-ful/js/boot.js" ></script>
+
+
+</body>
+</html>
